@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.PurchaseInOrderLineMapper">
+
+    <select id="listByPurchaseInOrderId" resultType="cn.code4java.springbok.vo.PurchaseInOrderLineVO">
+        SELECT
+            piol.*,
+            iss.item_code,
+            iss.item_name,
+            iss.spec
+        FROM
+            erp_purchase_in_order_line piol,
+            mall_item_sale_sku iss
+        WHERE
+        piol.sku_code = iss.sku_code
+        AND piol.purchase_in_order_id = #{purchaseInOrderId}
+    </select>
+</mapper>

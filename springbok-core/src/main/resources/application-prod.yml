@@ -1,0 +1,149 @@
+mybatis-plus:
+  configuration:
+    # 生产环境关闭SQL日志输出
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    cache-enabled: true
+  mapper-locations: classpath*:/mapper/**/*.xml #数据库访问地址
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 1
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springbok?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    # 连接池配置
+    druid:
+      # 最大连接池数量
+      max-active: 500
+      # 最小连接池数量
+      min-idle: 10
+      # 获取连接时最大等待时间，单位毫秒
+      max-wait: 60000
+      stat-view-servlet:
+        enabled: true
+        # 配置允许访问的白名单，不配置默认允许所有访问
+        allow: ''
+        # druid登录用户名
+        login-username: admin
+        # druid登录密码
+        login-password: 123456
+      filter:
+        stat:
+          # 慢查询
+          slow-sql-millis: 3000
+          log-slow-sql: true
+        wall:
+          # 开启防火墙
+          enabled: true
+      filters: stat,wall
+      # 用于采集web-jdbc关联监控的数据
+      web-stat-filter:
+        enabled: true
+        # 监控匹配的url
+        url-pattern: /*
+        # 排除一些不必要的url
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+  # redis配置
+  redis:
+    host: localhost
+    # redis密码，没有则为空
+    password:
+    # 默认端口6379
+    port: 6379
+    database: 0
+    # 客户端类型，jedis
+    client-type: jedis
+    jedis:
+      pool:
+        # 最大连接数
+        max-active: 20
+        # 连接池最大等待时间
+        max-wait: 3000
+        # 最大空闲连接
+        max-idle: 5
+  # rabbitmq配置
+#  rabbitmq:
+#    # 主机地址
+#    host: localhost
+#    # 默认端口5672
+#    port: 5672
+#    # 虚拟主机
+#    virtual-host: /springbok
+#    # 用户名
+#    username: springbok
+#    # 密码
+#    password: 123456
+#    # MQ连接超时时间
+#    connection-timeout: 5s
+#    template:
+#      retry:
+#        # 开启重试机制
+#        enabled: true
+#        # 第一次失败后重试间隔时间
+#        initial-interval: 1000ms
+#        # 重试失败后下一次等待时长的倍数
+#        multiplier: 2
+#        # 最大重试次数
+#        max-attempts: 3
+#    # 开启生产者确认机制，correlated：异步回调方式接收ACK或NACK
+#    publisher-confirm-type: none
+springbok:
+  # 存储配置
+  storage:
+    # 当前工作的对象存储模式，分别是local、aliyun、tencent
+    active: local
+    # 本地对象存储配置信息
+    local:
+      # 存储的目录名称
+      storagePath: storages
+      # 返回前端的图片地址
+      address: http://localhost:9988/image/
+    # 阿里云OSS配置
+    aliyun:
+      # id
+      accessKeyId: xxx
+      # secret
+      accessKeySecret: xxx
+    # 腾讯云COS配置
+    tencent:
+      # appId
+      appId: xxx
+      # secretId
+      secretId: xxx
+      # secretKey
+      secretKey: xxx
+  api:
+    security:
+      # 请求有效时间，单位：s
+      expire-time: 10
+    idempotent:
+      # 幂等key前缀
+      key-prefix: idempotent
+  auth:
+    # 放行url列表
+    not-match-urls:
+      - /error
+      - /favicon.ico
+      - /doc.html
+      - /webjars/**
+      - /v3/api-docs/**
+      - /swagger-ui/**
+      - /user/login
+      - /user/logout
+      - /image/**/**
+      - /api/**/**
+# knife4j增强配置
+knife4j:
+  enable: true
+  #是否为生产环境进行拒绝访问；true为关闭knife4j页面访问功能
+  production: true
+  #开启账户登录模式
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: admin
+    # Basic认证密码
+    password: 123456

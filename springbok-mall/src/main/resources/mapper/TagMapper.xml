@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.TagMapper">
+
+    <select id="pageTag" resultType="cn.code4java.springbok.entity.Tag">
+        SELECT
+        *
+        FROM
+        mall_tag
+        <where>
+            <if test="query.tagName != null and query.tagName != ''">
+                and tag_name like concat('%',#{query.tagName},'%')
+            </if>
+            <if test="query.tagType > 0">
+                and tag_type like concat('%',#{query.tagType},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

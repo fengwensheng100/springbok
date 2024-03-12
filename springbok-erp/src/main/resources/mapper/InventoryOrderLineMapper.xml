@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.InventoryOrderLineMapper">
+
+    <select id="listByInventoryOrderId" resultType="cn.code4java.springbok.vo.InventoryOrderLineVO">
+        SELECT
+            iol.*,
+            iss.item_code,
+            iss.item_name,
+            iss.spec
+        FROM
+            erp_inventory_order_line iol,
+            mall_item_sale_sku iss
+        WHERE
+        iol.sku_code = iss.sku_code
+        AND iol.inventory_order_id = #{inventoryOrderId}
+    </select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.StockLineMapper">
+
+    <select id="pageStockLine" resultType="cn.code4java.springbok.vo.StockLineVO">
+        SELECT
+        sl.*,
+        iss.item_code,
+        iss.item_name
+        FROM
+        erp_stock_line sl,
+        mall_item_sale_sku iss
+        WHERE
+        sl.sku_code = iss.sku_code
+        <if test="query.itemName != null and query.itemName != ''">
+            AND (iss.item_name like concat('%',#{query.itemName},'%') or iss.item_code like
+            concat('%',#{query.itemName},'%'))
+        </if>
+        <if test="query.orderNo != null and query.orderNo != ''">
+            AND sl.order_no = #{query.orderNo}
+        </if>
+        <if test="query.orderType > 0">
+            AND sl.order_type = #{query.orderType}
+        </if>
+        <if test="query.stockId > 0">
+            AND sl.stock_id = #{query.stockId}
+        </if>
+        ORDER BY stock_line_id DESC
+    </select>
+</mapper>

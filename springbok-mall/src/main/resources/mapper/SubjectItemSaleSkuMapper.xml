@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.SubjectItemSaleMapper">
+
+    <select id="selectSubjectItemSale" resultType="cn.code4java.springbok.vo.SubjectItemSaleVO">
+        SELECT
+            siss.*,
+            its.main_image,
+            its.item_sale_id,
+            its.item_code,
+            its.item_sale_name,
+            its.item_sale_price
+        FROM
+            mall_subject_item_sale siss
+        LEFT JOIN mall_item_sale its ON siss.item_code = its.item_code
+        WHERE
+            siss.subject_id = #{subjectId}
+    </select>
+</mapper>

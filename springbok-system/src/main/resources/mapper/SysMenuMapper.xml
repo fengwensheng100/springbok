@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.SysMenuMapper">
+
+    <select id="listSysMenuByUserId" resultType="cn.code4java.springbok.entity.SysMenu">
+        SELECT
+            sm.*
+        FROM
+            sys_user su,
+            sys_role sr,
+            sys_role_menu srm,
+            sys_menu sm
+        WHERE
+            su.sys_role_id = sr.sys_role_id
+        AND sr.sys_role_id = srm.sys_role_id
+        AND srm.sys_menu_id = sm.sys_menu_id
+        AND su.sys_user_id = #{sysUserId}
+        ORDER BY sm.menu_sort DESC
+    </select>
+</mapper>

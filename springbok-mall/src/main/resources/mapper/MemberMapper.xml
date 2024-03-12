@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.MemberMapper">
+
+    <select id="pageMember" resultType="cn.code4java.springbok.entity.Member">
+        SELECT
+            *
+        FROM
+            mall_member
+        <where>
+            <if test="query.username != null and query.username != ''">
+                and (username like concat('%',#{query.username},'%') or nickname like concat('%',#{query.username},'%'))
+            </if>
+            <if test="query.phone != null and query.phone != ''">
+                and phone like concat('%',#{query.phone},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

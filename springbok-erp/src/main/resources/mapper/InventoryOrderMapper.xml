@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.InventoryOrderMapper">
+
+    <select id="pageInventoryOrder" resultType="cn.code4java.springbok.vo.InventoryOrderVO">
+        SELECT
+        io.*
+        FROM
+        erp_inventory_order io
+        <where>
+            <if test="query.orderStatus > 0">
+                AND io.order_status = #{query.orderStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

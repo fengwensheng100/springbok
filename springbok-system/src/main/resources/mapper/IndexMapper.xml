@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.IndexMapper">
+
+    <select id="statistics" resultType="cn.code4java.springbok.vo.StatisticsVO">
+        SELECT
+            sum(amount) orderAmount,
+            count(order_no) orderCount,
+            (
+                SELECT
+                    count(order_no)
+                FROM
+                    mall_sale_order
+                WHERE
+                    order_status = 2
+            ) waitingDeliverCount,
+            (
+                SELECT
+                    count(item_sale_id)
+                FROM
+                    mall_item_sale
+            ) itemSaleCount,
+            (
+                SELECT
+                    count(member_id)
+                FROM
+                    mall_member
+            ) memberCount
+        FROM
+            mall_sale_order
+    </select>
+
+    <select id="selectTopItemSaleStatisticsByMonth" resultType="cn.code4java.springbok.vo.ItemSaleStatisticsVO">
+        SELECT
+            *
+        FROM
+            (
+                SELECT
+                    sol.item_sale_id,
+                    sol.item_sale_name,
+                    sum(sol.amount) amount
+                FROM
+                    mall_sale_order so
+                LEFT JOIN mall_sale_order_line sol ON so.sale_order_id = sol.sale_order_id
+                WHERE
+                    so.pay_time BETWEEN date_add(
+                        curdate(),
+                        INTERVAL - DAY (curdate()) + 1 DAY
+                    )
+                AND curdate()
+                GROUP BY
+                    sol.item_sale_id,
+                    sol.item_sale_name
+            ) t
+        ORDER BY
+            t.amount ASC
+        LIMIT 10
+    </select>
+</mapper>

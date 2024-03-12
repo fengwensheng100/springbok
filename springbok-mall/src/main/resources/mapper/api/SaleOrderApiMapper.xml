@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.api.SaleOrderApiMapper">
+
+    <select id="pageSaleOrder" resultType="cn.code4java.springbok.vo.api.SaleOrderApiVO">
+        SELECT
+            *
+        FROM
+            sale_order
+        <where>
+            <if test="query.orderStatus > 0">
+                and order_status = #{query.orderStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

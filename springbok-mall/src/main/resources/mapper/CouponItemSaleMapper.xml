@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.CouponItemSaleMapper">
+
+    <select id="selectCouponItemSale" resultType="cn.code4java.springbok.vo.CouponItemSaleVO">
+        SELECT
+            cis.*,
+            its.item_sale_name,
+            its.item_sale_price,
+            its.main_image
+        FROM
+            mall_coupon_item_sale cis
+        LEFT JOIN mall_item_sale its ON cis.item_code = its.item_code
+        WHERE
+            cis.coupon_id = #{couponId}
+    </select>
+</mapper>

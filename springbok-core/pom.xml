@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>springbok</artifactId>
+        <groupId>cn.code4java</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>springbok-core</artifactId>
+    <description>核心启动模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.code4java</groupId>
+            <artifactId>springbok-system</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.code4java</groupId>
+            <artifactId>springbok-erp</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.code4java</groupId>
+            <artifactId>springbok-mall</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.code4java</groupId>
+            <artifactId>springbok-mq</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.code4java</groupId>
+            <artifactId>springbok-test</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.SysUserMapper">
+
+    <select id="pageSysUser" resultType="cn.code4java.springbok.entity.SysUser">
+        SELECT
+            *
+        FROM
+            sys_user
+        <where>
+            <if test="sysUserQueryDTO.username != null and sysUserQueryDTO.username != ''">
+                and (username like concat('%',#{sysUserQueryDTO.username},'%') or nick_name like concat('%',#{sysUserQueryDTO.username},'%'))
+            </if>
+            <if test="sysUserQueryDTO.mobile != null and sysUserQueryDTO.mobile != ''">
+                and mobile like concat('%',#{sysUserQueryDTO.mobile},'%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

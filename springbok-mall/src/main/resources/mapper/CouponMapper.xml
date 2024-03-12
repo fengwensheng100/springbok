@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.CouponMapper">
+
+    <select id="pageCoupon" resultType="cn.code4java.springbok.entity.Coupon">
+        SELECT
+            *
+        FROM
+            mall_coupon
+        <where>
+            <if test="query.couponName != null and query.couponName != ''">
+                and coupon_name like concat('%',#{query.couponName},'%')
+            </if>
+            <if test="query.couponType > 0">
+                and coupon_type = #{query.couponType}
+            </if>
+        </where>
+    </select>
+</mapper>

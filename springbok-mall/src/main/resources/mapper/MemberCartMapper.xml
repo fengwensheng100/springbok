@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.code4java.springbok.mapper.MemberCartMapper">
+
+    <select id="listMemberCart" resultType="cn.code4java.springbok.vo.MemberCartVO">
+        SELECT
+            mc.*,
+            iss.price,
+            iss.image,
+            CASE its.STATUS
+            WHEN 1 THEN TRUE
+            ELSE FALSE
+            END AS effective,
+            s.quantity
+        FROM
+            mall_member_cart mc
+            LEFT JOIN mall_item_sale_sku iss ON mc.item_sale_sku_id = iss.item_sale_sku_id
+            LEFT JOIN mall_item_sale its ON iss.item_sale_id = its.item_sale_id
+            LEFT JOIN erp_stock s ON iss.sku_code = s.sku_code
+        <where>
+            <if test="query.memberId > 0">
+                AND mc.member_id = #{query.memberId}
+            </if>
+        </where>
+    </select>
+
+    <select id="listMemberCartByIds" resultType="cn.code4java.springbok.vo.MemberCartVO">
+        SELECT
+        mc.*,
+        iss.sku_code,
+        iss.price,
+        iss.image,
+        CASE its.STATUS
+        WHEN 1 THEN TRUE
+        ELSE FALSE
+        END AS effective,
+        s.quantity
+        FROM
+        mall_member_cart mc
+        LEFT JOIN mall_item_sale_sku iss ON mc.item_sale_sku_id = iss.item_sale_sku_id
+        LEFT JOIN mall_item_sale its ON iss.item_sale_id = its.item_sale_id
+        LEFT JOIN erp_stock s ON iss.sku_code = s.sku_code
+        <where>
+            mc.member_cart_id in
+            <foreach collection="memberCartIds" close=")" item="memberCartId" open="(" separator=",">
+                #{memberCartId}
+            </foreach>
+        </where>
+    </select>
+</mapper>
